@@ -1,69 +1,102 @@
-const ingresarNumero = () => {
-    let x;
-    x = parseInt(prompt(`Ingrese un valor positivo. Para finalizar, ingrese un valor negativo`));
-    while (isNaN(x)) {
-        x = parseInt(prompt(`No ingrese textos, sólo números. \n Ingrese un valor positivo. Para finalizar, ingrese un valor negativo`));
-    }
-    console.log(`número válido ${x}`);
-    return x;
-}
+//Mi proyecto se trata de hacer el ecommerce de la web de productos que desarrolle en Desarrollo Web
 
-const resultados = (x, x2, n) => {
-    console.log(`ingreso a resultados`);
-    let promedio = x / n;
-    let varianza = (x2 - n * promedio) / (n - 1);
-    let desvioPromedio = (varianza / n) ** (1 / 2);
-    let error = 2 * desvioPromedio;
-    let ls = promedio + error;
-    let li = promedio - error;
-    alert(`Este es el resultado de la investigación. \n El valor medio de los datos es ${promedio}. \n La varianza de los datos es ${varianza}. \n El error de la investigación es de +-${error}. \n Con una confianza del 95%, se puede decir que el parámetro poblacional se encuentra entre ${li} y ${ls}`);
-}
+let producto = parseInt(
+    prompt(
+        'Bienvenido a porcelaneste, elegi la manualidad de tu gusto ingresando el numero de la categoria: 1 Centro de tortas $4500 // 2 Souvenires $550 // 3 Accesorios $100'
+    )
+)
+let totalCompra = 0
+let seguirComprando = true
+let decision
 
-const otroAnalisis = () => {
-    let x;
-    x = prompt(`¿Desea realizar otro estudio? Ingrese SI o NO`);
-    if (x != null) { x = x.toLowerCase(); }
-    console.log(x); //// TIENE PROBLEMA CUANDO EL USUARIO COLOCA CANCELAR
-    while (!(x === 'si' || x === 'no')) {
-        x = prompt(`No ingresó una respuesta válida. \n ¿Desea realizar otro estudio? Ingrese SI o NO`);
-        if (x != null) { x = x.toLowerCase(); }
-        console.log(x);
-    }
-    console.log(`respuesta válida ${x}`);
-    if (x === 'si') {
-        return true;
+//Agregar productos al carrito
+while (seguirComprando === true) {
+    if (producto === 1) {
+        totalCompra = totalCompra + 4500
+    } else if (producto === 2) {
+        totalCompra = totalCompra + 550
+    } else if (producto === 3) {
+        totalCompra = totalCompra + 100
     } else {
-        return false;
+        producto = parseInt(prompt('Ingreso una opcion incorrecta. Elegi la manualidad de tu gusto ingresando el numero de la categoria: 1 Centro de tortas $4500 // 2 Souvenires $550 // 3 Accesorios $100'))
+        continue
+    }
+
+    //Pregunta si continua comprando, si contesta 1, vuelve a ofrecer productos, sino continua a la seccion cuotas
+    decision = parseInt(prompt('¿Continuar comprando? 1- Si  2- No'))
+    if (decision === 1) {
+        producto = parseInt(
+            prompt(
+                'Elegi la manualidad de tu gusto ingresando el numero de la categoria: 1 Centro de tortas $4500 // 2 Souvenires $550 // 3 Accesorios $100'
+            )
+        )
+    } else {
+        seguirComprando = false
     }
 }
 
+//Pregunto si quiere pagar en cuotas o contado
+let decisionCuotas
 
-let numero, suma = 0, sumaCuadrado = 0, n = 0, neg = false, otro = true;
+decisionCuotas = parseInt(prompt('¿Desea abonar en cuotas? 1 Si // 2 No'))
+if (decisionCuotas === 1) {
 
-alert(`Este programa es un asistente de muestreo. \n Eres un investigador que salió a hacer una encuesta. La única pregunta de tu encuesta es "¿Cuántas horas semanales haces ejercicio?". A continuación, debes ingresar los valores. \n BG`);
-do {
-    suma = 0;
-    sumaCuadrado = 0;
-    n = 0;
-    neg = false;
-    otro = false;
-    do {
-        numero = ingresarNumero();
-        if (numero >= 0) {
-            suma = suma + numero;
-            sumaCuadrado = sumaCuadrado + numero ** 2;
-            n++;
-        } else {
-            neg = true;
-        }
-    } while (neg === false);
-
-    console.log(`Resultados ${suma}; ${sumaCuadrado}; ${n}`);
-    if (n >= 2) {
-        resultados(suma, sumaCuadrado, n);
-    } else {
-        alert(`Ingresó menos de 3 valores válidos. \nLamentablemente, no es posible hacer el análisis con tan pocos elementos ingresados.`);
+    //Funcion para ingresar cuotas a pagar
+    function cuotas1() {
+        let cuotas1 = parseInt(prompt("¿En cuantas cuotas quiere pagar, elija entre 1 a 12 cuotas por mes"));
+        alert("¿Desea pagar en " + cuotas1 + " cuotas?")
+        return cuotas1
     }
-    otro = otroAnalisis();
-} while (otro);
-alert(`¡Gracias por utilizar nuestra calculadora de muestreo! \n BG`);
+
+    //Capturar resultado de la cantidad de cuotas seleccionadas
+    let cuotas = cuotas1()
+
+    //Mostrar resultado de funciones en console para control
+    console.log("El total es: " + totalCompra)
+    console.log("Las cuotas son:" + cuotas)
+
+    //Dividir cantidad en cuotas
+    function dividir(dato1, dato2) {
+        let resultado = dato1 / dato2;
+        return resultado
+    }
+
+    //Capturar el resultados de las cuotas
+    let division = dividir(totalCompra, cuotas)
+
+    //Mostrar resultado en console y al usuario
+    console.log("Usted debe pagar " + cuotas + " cuotas de " + division)
+    alert("Usted debe pagar " + cuotas + " cuotas de $" + division)
+
+} else {
+    alert("Usted debe pagar $" + totalCompra + " al contado")
+}
+
+
+    /*
+    //Funcion para ingresar cuotas a pagar
+    function cuotas1() {
+        let cuotas1 = parseInt(prompt("¿En cuantas cuotas quiere pagar, elija entre 1 a 12 cuotas por mes"));
+        alert("¿Desea pagar en " + cuotas1 + " cuotas?")
+        return cuotas1
+    }
+
+    //Capturar resultado de la cantidad de cuotas seleccionadas
+    let cuotas = cuotas1()
+
+    //Mostrar resultado de funciones en console para control
+    console.log("El total es: " + totalCompra)
+    console.log("Las cuotas son:" + cuotas)
+
+    //Dividir cantidad en cuotas
+    function dividir(dato1, dato2) {
+        let resultado = dato1 / dato2;
+        return resultado
+    }
+
+    //Capturar el resultados de las cuotas
+    let division = dividir(totalCompra, cuotas)
+
+    //Mostrar resultado en console y al usuario
+    console.log("Usted debe pagar " + cuotas + " cuotas de " + division)
+    alert("Usted debe pagar " + cuotas + " cuotas de $" + division)*/
