@@ -44,7 +44,6 @@ if (decisionCuotas === 1) {
     //Funcion para ingresar cuotas a pagar
     function cuotas1() {
         let cuotas1 = parseInt(prompt("¿En cuantas cuotas quiere pagar, elija entre 1 a 12 cuotas por mes"));
-        alert("¿Desea pagar en " + cuotas1 + " cuotas?")
         return cuotas1
     }
 
